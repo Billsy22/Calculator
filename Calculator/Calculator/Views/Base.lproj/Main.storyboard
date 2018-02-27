@@ -287,11 +287,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="76E-pJ-i09">
                                 <rect key="frame" x="20" y="114" width="335" height="172"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AYo-np-H3u">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEL-37-AxJ">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="86"/>
                                         <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="AYo-np-H3u" secondAttribute="height" multiplier="335:86" id="2Mh-UL-xNu"/>
+                                            <constraint firstAttribute="width" secondItem="hEL-37-AxJ" secondAttribute="height" multiplier="335:86" id="Hru-OP-7N1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         <nil key="textColor"/>
@@ -341,7 +341,7 @@
                         <outlet property="threeButton" destination="MWZ-e0-57g" id="MzT-AH-Aoq"/>
                         <outlet property="timesButton" destination="wKW-cc-K4B" id="6uG-KT-yTW"/>
                         <outlet property="twoButton" destination="8zF-ZE-xp1" id="SLD-dD-7mF"/>
-                        <outlet property="variableLabel" destination="AYo-np-H3u" id="L95-Uu-NTd"/>
+                        <outlet property="variableLabel" destination="hEL-37-AxJ" id="5XK-Pt-LU6"/>
                         <outlet property="zeroButton" destination="Ryx-Ss-KLv" id="OUc-zZ-FKT"/>
                     </connections>
                 </viewController>

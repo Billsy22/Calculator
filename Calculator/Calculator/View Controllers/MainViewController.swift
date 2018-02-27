@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextViewDelegate {
     
     // MARK: -  Properties
-    var argumentOne = 0
+    var argumentOne = "\(0)"
     
     // MARK: -  Outlets
     
@@ -41,26 +41,38 @@ class MainViewController: UIViewController {
         display(number: 1)
     }
     @IBAction func twoButtonTapped(_ sender: Any) {
+        display(number: 2)
     }
     @IBAction func threeButtonTapped(_ sender: Any) {
+        display(number: 3)
     }
     @IBAction func fourButtonTapped(_ sender: Any) {
+        display(number: 4)
     }
     @IBAction func fiveButtonTapped(_ sender: Any) {
+        display(number: 5)
     }
     @IBAction func sixButtonTapped(_ sender: Any) {
+        display(number: 6)
     }
     @IBAction func sevenButtonTapped(_ sender: Any) {
+        display(number: 7)
     }
     @IBAction func eightButtonTapped(_ sender: Any) {
+        display(number: 8)
     }
     @IBAction func nineButtonTapped(_ sender: Any) {
+        display(number: 9)
     }
     @IBAction func zeroButtonTapped(_ sender: Any) {
+        display(number: 0)
     }
     @IBAction func decimalAndFractionButtonTapped(_ sender: Any) {
     }
     @IBAction func clearButtonTapped(_ sender: Any) {
+        guard let last = argumentOne.last else { return }
+        guard let index = argumentOne.index(of: last) else { return }
+        argumentOne.remove(at: index)
     }
     @IBAction func plusButtonTapped(_ sender: Any) {
     }
@@ -98,10 +110,17 @@ extension MainViewController {
         button.layer.cornerRadius = 10
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(textView.text.count) > 10 && range.length == 0 {
+            return false
+        }
+        return true
+    }
+    
     // Set the initial view
     func setViews() {
-        variableLabel.text
-        variableLabel.text = "\(0)"
+        
+        variableLabel.text = "\(argumentOne)"
         storedLabel.text = ""
         
         circle(button: oneButton)
@@ -130,12 +149,25 @@ extension MainViewController {
     
     // Number Buttons
     func display(number: Int) {
-        if variableLabel.text <= 8 {
-            if variableLabel.text == "0" {
-                variableLabel.text = "\(number)"
+        if argumentOne.count < 9 {
+            if argumentOne == "\(0)" {
+                argumentOne = "\(number)"
             } else {
-                variableLabel.text?.append("\(number)")
+                argumentOne.append("\(number)")
             }
+        } else {
+            oneButton.isEnabled = false
+            twoButton.isEnabled = false
+            threeButton.isEnabled = false
+            fourButton.isEnabled = false
+            fiveButton.isEnabled = false
+            sixButton.isEnabled = false
+            sevenButton.isEnabled = false
+            eightButton.isEnabled = false
+            nineButton.isEnabled = false
+            zeroButton.isEnabled = false
         }
     }
 }
+
+
