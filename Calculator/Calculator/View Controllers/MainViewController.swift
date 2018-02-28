@@ -10,12 +10,18 @@ import UIKit
 
 class MainViewController: UIViewController, UITextViewDelegate {
     
-    
+    // MARK: -  math functions
+    enum PerformMathFunction {
+        case add
+        case subtract
+        case multiply
+        case divide
+    }
     
     // MARK: -  Properties
     var numberOnScreen: Double = 0
     var storedNumber: Double = 0
-    var mathFunction = false
+    var mathFunction: PerformMathFunction? = nil
     var operation = 0
     
     // MARK: -  Outlets
