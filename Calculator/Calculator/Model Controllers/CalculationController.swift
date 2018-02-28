@@ -16,7 +16,7 @@ class CalculationController {
     // MARK: -  Calculations
     
     func add(_ argumentOne: Double, to argumentTwo: Double) -> Double {
-        let result = argumentOne + argumentTwo
+        let result = Double(argumentOne) + Double(argumentTwo)
         return result
     }
     

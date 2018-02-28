@@ -11,7 +11,16 @@ import UIKit
 class MainViewController: UIViewController, UITextViewDelegate {
     
     // MARK: -  Properties
-    var argumentOne = "\(0)"
+    var numberAfter = 0
+    var numberBefore = 0
+    var symbol: MathSymbol?
+    
+    enum MathSymbol {
+        case add
+        case subtract
+        case multiply
+        case divide
+    }
     
     // MARK: -  Outlets
     
@@ -70,22 +79,37 @@ class MainViewController: UIViewController, UITextViewDelegate {
     @IBAction func decimalAndFractionButtonTapped(_ sender: Any) {
     }
     @IBAction func clearButtonTapped(_ sender: Any) {
-        guard let last = argumentOne.last else { return }
-        guard let index = argumentOne.index(of: last) else { return }
-        argumentOne.remove(at: index)
+        if numberBefore != 0 && numberAfter == 0 {
+            numberAfter = 0
+            variableLabel.text = "\(numberAfter)"
+            numberBefore = 0
+            storedLabel.text = ""
+        } else if numberBefore != 0 && numberAfter != 0 {
+            numberAfter = 0
+            variableLabel.text = "\(numberAfter)"
+        } else if numberBefore == 0 {
+            numberAfter = 0
+            variableLabel.text = "\(numberAfter)"
+        }
     }
     @IBAction func plusButtonTapped(_ sender: Any) {
+            symbol = .add
+            doCalculation()
     }
     @IBAction func minusButtonTapped(_ sender: Any) {
+        symbol = .subtract
+        doCalculation()
     }
     @IBAction func timesButtonTapped(_ sender: Any) {
+        symbol = .multiply
+        doCalculation()
     }
     @IBAction func divideButtonTapped(_ sender: Any) {
+        symbol = .divide
+        doCalculation()
     }
     @IBAction func equalButtonTapped(_ sender: Any) {
     }
-    
-    
     
     // MARK: -  Life Cycles
     
@@ -110,17 +134,10 @@ extension MainViewController {
         button.layer.cornerRadius = 10
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(textView.text.count) > 10 && range.length == 0 {
-            return false
-        }
-        return true
-    }
-    
     // Set the initial view
     func setViews() {
         
-        variableLabel.text = "\(argumentOne)"
+        variableLabel.text = "\(numberAfter)"
         storedLabel.text = ""
         
         circle(button: oneButton)
@@ -149,25 +166,50 @@ extension MainViewController {
     
     // Number Buttons
     func display(number: Int) {
-        if argumentOne.count < 9 {
-            if argumentOne == "\(0)" {
-                argumentOne = "\(number)"
+        guard let variableLabelText = variableLabel.text else { return }
+        if variableLabelText.count < 9 {
+            if numberAfter == 0 {
+                numberAfter = number
             } else {
-                argumentOne.append("\(number)")
+                numberAfter *= 10
+                numberAfter += number
             }
-        } else {
-            oneButton.isEnabled = false
-            twoButton.isEnabled = false
-            threeButton.isEnabled = false
-            fourButton.isEnabled = false
-            fiveButton.isEnabled = false
-            sixButton.isEnabled = false
-            sevenButton.isEnabled = false
-            eightButton.isEnabled = false
-            nineButton.isEnabled = false
-            zeroButton.isEnabled = false
+        }
+        variableLabel.text = "\(numberAfter)"
+    }
+    
+    // Update our numbers
+    func updateLabels() {
+        numberAfter = 0
+        storedLabel.text = "\(numberBefore)"
+    }
+    
+    // Operator buttons
+    func doCalculation() {
+        if symbol == nil {
+            return
+        }
+        
+        switch symbol! {
+        case .add:
+            print("Add \(numberBefore) and \(numberAfter)")
+            numberBefore += numberAfter
+            updateLabels()
+        case .subtract:
+            print("Subtract \(numberBefore) from \(numberAfter)")
+            numberBefore -= numberAfter
+            updateLabels()
+        case .multiply:
+            print("Multiply \(numberBefore) by \(numberAfter)")
+            numberBefore += numberAfter
+            updateLabels()
+        case .divide:
+            print("Divide \(numberBefore) by \(numberAfter)")
+            numberBefore /= numberAfter
+            updateLabels()
         }
     }
 }
+
 
 
