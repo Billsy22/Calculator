@@ -34,23 +34,11 @@ class MainViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func numbersTapped(_ sender: UIButton) {
         if variableLabel.text != "0" {
-            if mathFunction != true {
-                variableLabel.text = variableLabel.text! + "\(sender.tag)"
-                numberOnScreen = Double(variableLabel.text!)!
-            } else {
-                variableLabel.text = variableLabel.text! + "\(sender.tag)"
-                numberOnScreen = Double(variableLabel.text!)!
-                mathFunction = false
-            }
+            variableLabel.text = variableLabel.text! + "\(sender.tag)"
+            numberOnScreen = Double(variableLabel.text!)!
         } else {
-            if mathFunction != true {
-                variableLabel.text = "\(sender.tag)"
-                numberOnScreen = Double(variableLabel.text!)!
-            } else {
-                variableLabel.text = "\(sender.tag)"
-                numberOnScreen = Double(variableLabel.text!)!
-                mathFunction = false
-            }
+            variableLabel.text = "\(sender.tag)"
+            numberOnScreen = Double(variableLabel.text!)!
         }
     }
     
@@ -59,22 +47,28 @@ class MainViewController: UIViewController, UITextViewDelegate {
             
             if sender.tag == 12 {
                 if storedNumber != 0 {
-                    storedNumber += numberOnScreen
+//                    storedNumber += numberOnScreen
+                    performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 } else {
-                    storedNumber = numberOnScreen
+//                    storedNumber = numberOnScreen
+                    performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 }
+                mathFunction = .add
             }
             
             if sender.tag == 13 {
                 if storedNumber != 0 {
-                    storedNumber -= numberOnScreen
+//                    storedNumber -= numberOnScreen
+                    performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 } else {
-                    storedNumber = numberOnScreen
+//                    storedNumber = numberOnScreen
+                    performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 }
+                mathFunction = .subtract
             }
             
             if sender.tag == 14 {
@@ -100,7 +94,6 @@ class MainViewController: UIViewController, UITextViewDelegate {
             variableLabel.text = "0"
             numberOnScreen = Double(variableLabel.text!)!
             operation = sender.tag
-            mathFunction = true
             
         } else if sender.tag == 16 {
             if operation == 12 {
@@ -116,12 +109,14 @@ class MainViewController: UIViewController, UITextViewDelegate {
                 variableLabel.text = "\(storedNumber / numberOnScreen)"
                 storedLabel.text = ""
             }
+            mathFunction = nil
         } else if sender.tag == 11 {
             variableLabel.text = ""
             storedLabel.text = ""
             storedNumber = 0
             numberOnScreen = 0
             operation = 0
+            mathFunction = nil
         }
     }
     
@@ -173,6 +168,32 @@ extension MainViewController {
         roundedCorner(button: allButtons[14])
         roundedCorner(button: allButtons[15])
         roundedCorner(button: allButtons[16])
+    }
+}
+
+// MARK: -  Extension: Do the math we ask for
+extension MainViewController {
+    func performMathFunction() {
+        
+        if mathFunction == nil {
+            print("No math function")
+            return
+        }
+        
+        switch mathFunction! {
+        case .add:
+            print("adding")
+            storedNumber += numberOnScreen
+        case .subtract:
+            print("subtracting")
+            storedNumber -= numberOnScreen
+        case .multiply:
+            print("mulitplying")
+            storedNumber *= numberOnScreen
+        case .divide:
+            print("dividing")
+            storedNumber /= numberOnScreen
+        }
     }
 }
 
