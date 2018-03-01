@@ -47,11 +47,9 @@ class MainViewController: UIViewController, UITextViewDelegate {
             
             if sender.tag == 12 {
                 if storedNumber != 0 {
-//                    storedNumber += numberOnScreen
                     performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 } else {
-//                    storedNumber = numberOnScreen
                     performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 }
@@ -60,11 +58,9 @@ class MainViewController: UIViewController, UITextViewDelegate {
             
             if sender.tag == 13 {
                 if storedNumber != 0 {
-//                    storedNumber -= numberOnScreen
                     performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 } else {
-//                    storedNumber = numberOnScreen
                     performMathFunction()
                     storedLabel.text = "\(storedNumber)"
                 }
@@ -177,6 +173,10 @@ extension MainViewController {
         
         if mathFunction == nil {
             print("No math function")
+            storedNumber = numberOnScreen
+            storedLabel.text = "\(storedNumber)"
+            numberOnScreen = 0
+            variableLabel.text = "\(numberOnScreen)"
             return
         }
         
